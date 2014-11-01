@@ -5,17 +5,24 @@
 	}
 
 	var tinyDOMFunction = function(selector) {
-		var elements = document.querySelectorAll(selector);
+		if(selector === null || typeof(selector) === 'undefined'){
+			this.length = 0;
+		} else if(typeof(selector) === 'string'){
+			var elements = document.querySelectorAll(selector);
 
-		this.length = elements.length;
-		for(var i = 0; i < elements.length; i++){
-			var e = elements.item(i);
-			if(typeof(e.td_prop) === 'undefined'){
-				e.td_prop = {
-					isHidden: false
-				};
+			this.length = elements.length;
+			for(var i = 0; i < elements.length; i++){
+				var e = elements.item(i);
+				if(typeof(e.td_prop) === 'undefined'){
+					e.td_prop = {
+						isHidden: false
+					};
+				}
+				this[i] = elements.item(i);
 			}
-			this[i] = elements.item(i);
+		} else {
+			this[0] = selector;
+			this.length = 1;
 		}
 
 		return this;

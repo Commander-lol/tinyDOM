@@ -8,14 +8,19 @@
 	<body>
 		<h1> this is a title </h1>
 		<div id="test">
+			<p>
 			These are <span class="important">words</span>! They are kind of important words too,
 			so it would be <span class='important'>bad</span> if any of them dissapeared.
+			</p>
+			<p id='emptydiv'>
+				
+			</p>
 		</div>
 
 		<button id="btn-hide">HIDE THINGS</button>
 		<button id="btn-show">SHOW THINGS</button>
 
-		<section class='information' data-href='/info/test.php'>
+		<section class='information' data-href='tests/get.html'>
 			<h2>About tinyDOM functions</h2>
 			<p>
 				tinyDOM operates on dom elements to make it a bit easier
@@ -51,6 +56,18 @@
 
 	μ('h1').on('click', function(){
 		console.log(this);
+	});
+
+	μ('.information').on('click', function(){
+		var url = μ(this).data('href');
+		console.log(μ(this).data('href'));
+		μ.ajax({
+			url: url,
+			success: function(data){
+				console.log(data);
+				μ('#emptydiv').first().innerHTML = data;
+			}
+		});
 	});
 	</script>
 </html>
