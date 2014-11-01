@@ -142,6 +142,7 @@
 		}
 
 		req.send(params.data);
+		return req;
 	};
 
 	if(!window.μ){
