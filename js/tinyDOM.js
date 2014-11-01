@@ -76,6 +76,23 @@
 		}
 	}
 
+	tinyDOM.exists = function(obj){
+		return obj !== null && typeof(obj) !== 'undefined';
+	}
+
+	tinyDOM.merge = function(json1, json2){
+		if(!this.exists(json1) || !this.exists(json2)){
+			return null;
+		} else {
+			for(var prop in json2) {
+				if(json2.hasOwnProperty(prop)){
+					json1[prop] = json2[prop];
+				}
+			}
+			return json1;
+		}
+	}
+
 	if(!window.μ){
 		window.μ = tinyDOM;
 	}
