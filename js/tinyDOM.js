@@ -1,4 +1,3 @@
-//Prevent pollution of global namespace with closure
 (function(){
 	var tinyDOM = function(selector){
 		return new tinyDOMFunction(selector);
