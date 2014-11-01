@@ -93,6 +93,57 @@
 		}
 	}
 
+	tinyDOM.ajax = function(options){
+		var req = new XMLHttpRequest();
+		var _this = this;
+
+		var params = {
+			method: 'GET',
+			url: '',
+			async: true,
+			user: null,
+			password: null,
+			responseType: 'text',
+			data: null,
+			headers: [],
+			success: null,
+			error: null
+		}
+
+		this.merge(params, options);
+
+		req.responseType = params.responseType;
+
+		req.onreadystatechange = function(){
+			if(req.readyState > 1){
+				if(req.status === 200){
+					if (req.readyState === 4 && _this.exists(params.success)){
+						params.success(req.response, req);
+					}
+				} else {
+					req.abort();
+					if(_this.exists(params.error)){
+						params.error({status: req.status, message: req.statusText}, req);
+					}
+				}
+			}
+		}
+
+		req.open(
+			params.method,
+			params.url,
+			params.async,
+			params.user,
+			params.password
+		);
+
+		for(var i = 0; i < params.headers.length; i++){
+			req.setRequestHeader(params.headers[i].header, params.headers[i].value);
+		}
+
+		req.send(params.data);
+	};
+
 	if(!window.μ){
 		window.μ = tinyDOM;
 	}
