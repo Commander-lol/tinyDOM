@@ -76,7 +76,10 @@
 		}
 	}
 
-	if(!window.π){
-		window.π = tinyDOM;
+	if(!window.μ){
+		window.μ = tinyDOM;
+	}
+	if(!window.mu){
+		window.mu = tinyDOM;
 	}
 })();
