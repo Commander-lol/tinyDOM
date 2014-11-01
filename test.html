@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>tinyDOM test</title>
+		<meta charset="utf-8">
+	</head>
+
+	<body>
+		<h1> this is a title </h1>
+		<div id="test">
+			These are <span class="important">words</span>! They are kind of important words too,
+			so it would be <span class='important'>bad</span> if any of them dissapeared.
+		</div>
+
+		<button id="btn-hide">HIDE THINGS</button>
+		<button id="btn-show">SHOW THINGS</button>
+
+		<section class='information' data-href='/info/test.php'>
+			<h2>About tinyDOM functions</h2>
+			<p>
+				tinyDOM operates on dom elements to make it a bit easier
+				to select and manipulate them. It also provides some simple
+				functions to do basic things like hide and show.
+			</p>
+			<p>
+				There are two basic types of target for the built in functions: 
+				any number of elements<sup>[1]</sup> and one exactly one element<sup>[2]</sup>. 
+				An example of [1] would be hiding all elements with the class 'important' whereas
+				an example of [2] would be getting the value of a given data attribute - it wouldn't
+				make sense to perform the second on a group of elements. 
+			</p>
+			<p>
+				As such, where appopriate, tinyDOM will operate only on the first element if a group 
+				are matched by whatever selector is given. Such functions are as follows:
+			</p>
+			<ul>
+				<li>.data(<em>attribute</em>)</li>
+			</ul>
+		</section>
+	</body>
+
+	<script type="text/javascript" src="js/tinyDOM.js"></script>
+	<script type="text/javascript">
+	π('#btn-show').on('click', function(){
+		π('.important').show();
+	});
+
+	π('#btn-hide').on('click', function(){
+		π('.important').hide();
+	});
+
+	π('h1').on('click', function(){
+		console.log(this);
+	});
+	</script>
+</html>
