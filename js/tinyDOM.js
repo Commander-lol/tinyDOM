@@ -122,14 +122,17 @@
 
 		req.onreadystatechange = function(){
 			if(req.readyState > 1){
-				if(req.status === 200){
+				if(req.status >= 200 && req.status < 400){
 					if (req.readyState === 4 && _this.exists(params.success)){
 						params.success(req.response, req);
 					}
 				} else {
-					req.abort();
-					if(_this.exists(params.error)){
-						params.error({status: req.status, message: req.statusText}, req);
+					if(!_this.exists(req.td_hasAborted) || !req.td_hasAborted){
+						if(_this.exists(params.error)){
+							params.error({status: req.status, message: req.statusText}, req);
+						}
+						req.td_hasAborted = true;
+						req.abort();
 					}
 				}
 			}
