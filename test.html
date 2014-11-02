@@ -20,8 +20,8 @@
 		<button id="btn-hide">HIDE THINGS</button>
 		<button id="btn-show">SHOW THINGS</button>
 
-		<section class='information' data-href='tests/get.html'>
-			<h2>About tinyDOM functions</h2>
+		<section class='information'>
+			<h2 data-href='tests/get.html'>About tinyDOM functions</h2>
 			<p>
 				tinyDOM operates on dom elements to make it a bit easier
 				to select and manipulate them. It also provides some simple
@@ -41,6 +41,18 @@
 			<ul>
 				<li>.data(<em>attribute</em>)</li>
 			</ul>
+
+			<hr>
+
+			<p>
+				There are also functions that are invoked directly from the my object, and deal with
+				things such as ajax requests and json utilities. A few examples of these are
+			</p>
+			<ul id='delTest'>
+				<li class='clickme'>.merge(<em>obj1</em>, <em>obj2</em>)</li>
+				<li class='noclick'>.exists(<em>obj</em>)</li>
+				<li class='clickme'>.ajax(<em>params</em>)</li>
+			</ul>
 		</section>
 	</body>
 
@@ -59,7 +71,7 @@
 		console.log(this);
 	});
 
-	μ('.information').on('click', function(){
+	μ('.information h2').on('click', function(){
 		var url = μ(this).data('href');
 		console.log(μ(this).data('href'));
 		μ.ajax({

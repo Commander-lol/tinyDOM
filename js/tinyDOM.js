@@ -1,4 +1,18 @@
 (function(){
+
+	/*
+	* Polyfill from https://gist.github.com/elijahmanor/6452535
+	*/
+	if (Element && !Element.prototype.matches) {
+    var proto = Element.prototype;
+    proto.matches = proto.matchesSelector ||
+        proto.mozMatchesSelector || proto.msMatchesSelector ||
+        proto.oMatchesSelector || proto.webkitMatchesSelector;
+	}
+	/*
+	* End Polyfill
+	*/
+
 	var tinyDOM = function(selector){
 		return new tinyDOMFunction(selector);
 	}
@@ -58,10 +72,32 @@
 			});
 			return this;
 		},
-		on: function(ev, fn){
-			this.each(function(i, e){
-				e.addEventListener(ev, fn);
-			});
+		on: function(ev, del, fn){
+			if(typeof(del) === 'string'){
+				this.each(function(i, e){
+					e.addEventListener(ev, function(firedevent){
+						var target = firedevent.target;
+						var matched = false;
+						do {
+							if(target && target.matches(del)){
+								fn.call(target, firedevent);
+								matched = true;
+							} else {
+								target = target.parentNode;
+								if(!target || !target.matches){
+									matched = true;
+								}
+							}
+						} while(matched !== true);
+
+					});
+				});
+			} else {
+				var fn = del;
+				this.each(function(i, e){
+					e.addEventListener(ev, fn);
+				});
+			}
 			return this;
 		},
 		first: function(){

@@ -9,6 +9,12 @@ if(!mu.exists(window.muTest)){
           console.log(data);
         }
       });
+    },
+    delegateEvent: function(){
+      mu('#delTest').on('click', '.clickme', function(e){
+        console.log(this);
+        console.log(e);
+      });
     }
   }
 }
