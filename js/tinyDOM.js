@@ -84,7 +84,7 @@
 								matched = true;
 							} else {
 								target = target.parentNode;
-								if(!target || !target.matches){
+								if(!target || !target.matches || target === e){
 									matched = true;
 								}
 							}
