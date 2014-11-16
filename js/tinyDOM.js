@@ -1,8 +1,20 @@
-//Prevent pollution of global namespace with closure
 (function() {
     'use strict';
 
-	var tinyDOM = function(selector) {
+	/*
+	* Polyfill from https://gist.github.com/elijahmanor/6452535
+	*/
+	if (Element && !Element.prototype.matches) {
+        var proto = Element.prototype;
+        proto.matches = proto.matchesSelector ||
+        proto.mozMatchesSelector || proto.msMatchesSelector ||
+        proto.oMatchesSelector || proto.webkitMatchesSelector;
+	}
+	/*
+	* End Polyfill
+	*/
+
+	var tinyDOM = function(selector){
 		return new tinyDOMFunction(selector);
 	};
 
@@ -50,7 +62,7 @@
 		},
 		show: function() {
 			this.each(function(i, e) {
-				if(e.td_prop.isHidden === true){
+				if(e.td_prop.isHidden === true) {
 					if(typeof(e.style.td_previousDisplay) !== 'undefined') {
 						e.style.display = e.style.td_previousDisplay;
 					} else {
@@ -61,10 +73,32 @@
 			});
 			return this;
 		},
-		on: function(ev, fn) {
-			this.each(function(i, e) {
-				e.addEventListener(ev, fn);
-			});
+		on: function(ev, del, fn) {
+			if(typeof(del) === 'string') {
+				this.each(function(i, e) {
+					e.addEventListener(ev, function(firedevent) {
+						var target = firedevent.target;
+						var matched = false;
+						do {
+							if(target && target.matches(del)) {
+								fn.call(target, firedevent);
+								matched = true;
+							} else {
+								target = target.parentNode;
+								if(!target || !target.matches || target === e) {
+									matched = true;
+								}
+							}
+						} while(matched !== true);
+
+					});
+				});
+			} else {
+				var fn = del;
+				this.each(function(i, e) {
+					e.addEventListener(ev, fn);
+				});
+			}
 			return this;
 		},
 		first: function() {
