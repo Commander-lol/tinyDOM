@@ -136,6 +136,10 @@
 		}
 	}
 
+    tinyDOM.byID = function(id){
+        return tinyDOM(document.getElementById(id));
+    }
+
 	tinyDOM.ajax = function(options) {
 		var req = new XMLHttpRequest();
 		var _this = this;
