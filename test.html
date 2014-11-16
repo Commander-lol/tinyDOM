@@ -13,7 +13,7 @@
 			so it would be <span class='important'>bad</span> if any of them dissapeared.
 			</p>
 			<p id='emptydiv'>
-				
+
 			</p>
 		</div>
 
@@ -63,9 +63,11 @@
 		console.log(μ(this).data('href'));
 		μ.ajax({
 			url: url,
-			success: function(data){
-				console.log(data);
-				μ('#emptydiv').first().innerHTML = data;
+			callbacks: {
+				load: function(data){
+					console.log(data);
+					μ('#emptydiv').first().innerHTML = data;
+				}
 			}
 		});
 	});
