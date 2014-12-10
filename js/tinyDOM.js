@@ -1,4 +1,4 @@
-/*global Element */
+/*global Element, CustomEvent */
 /*jslint plusplus: true */
 /*jslint nomen: true*/
 
@@ -122,7 +122,16 @@
 			} else {
 				return e.getAttribute('data-' + key);
 			}
-		}
+		},
+        trigger: function (eventName, data, bubbles, cancelable) {
+            bubbles = tinyDOM.exists(bubbles) ? bubbles : true;
+            cancelable = tinyDOM.exists(cancelable) ? cancelable : true;
+
+            var event = new CustomEvent(eventName, data, bubbles, cancelable);
+            this.each(function (i, e) {
+                e.dispatchEvent(event);
+            });
+        }
 	};
 
 	tinyDOM.exists = function (obj) {
@@ -147,6 +156,12 @@
         return tinyDOM(document.getElementById(id));
     };
 
+    tinyDOM.triggerOn = function (target, eventName, data, bubbles, cancelable) {
+        bubbles = tinyDOM.exists(bubbles) ? bubbles : true;
+        cancelable = tinyDOM.exists(cancelable) ? cancelable : true;
+        target.dispatchEvent(new CustomEvent(eventName, data, bubbles, cancelable));
+    };
+
 	tinyDOM.ajax = function (options) {
 		var req = new XMLHttpRequest(),
             _this = this,
@@ -162,6 +177,11 @@
                 data: null,
                 headers: [],
                 callbacks: {}
+            },
+            makeListener = function (callback) {
+                return function (data) {
+                    callback(data.currentTarget.response, data);
+                };
             };
 
 		this.merge(params, options);
@@ -171,7 +191,7 @@
 		if (this.exists(params.callbacks)) {
 			for (ev in params.callbacks) {
 				if (params.callbacks.hasOwnProperty(ev)) {
-					req.addEventListener(ev, params.callbacks[ev]);
+					req.addEventListener(ev, makeListener(params.callbacks[ev]));
 				}
 			}
 		}
