@@ -131,6 +131,7 @@
             this.each(function (i, e) {
                 e.dispatchEvent(event);
             });
+            return this;
         }
 	};
 
