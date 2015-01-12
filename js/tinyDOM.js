@@ -123,6 +123,15 @@
 				return e.getAttribute('data-' + key);
 			}
 		},
+        attr: function (key, value) {
+			var e = this[0];
+			if (typeof (value) !== 'undefined') {
+				e.setAttribute(key, value);
+				return this;
+			} else {
+				return e.getAttribute(key);
+			}
+		},
         trigger: function (eventName, data, bubbles, cancelable) {
             bubbles = tinyDOM.exists(bubbles) ? bubbles : true;
             cancelable = tinyDOM.exists(cancelable) ? cancelable : true;
