@@ -126,8 +126,20 @@
 				return null;
 			}
 		},
-        parent: function() {
-            return tinyDOM(this[0].parentNode);
+        parent: function(selector) {
+            var e = this[0].parentNode, stn = true;
+            if (tinyDOM.exists(selector)) {
+                while (e != null && e != document) {
+                    if (e.matches(selector)) {
+                        stn = false;
+                        break;
+                    } else {
+                        e = e.parentNode;
+                    }
+                }
+                e = stn ? null : e;
+            }
+            return tinyDOM(e);
         },
         children: function() {
             var n = this[0].childNodes,
