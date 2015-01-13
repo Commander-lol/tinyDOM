@@ -5,7 +5,12 @@
 (function () {
     'use strict';
 
-    var proto, TinyDOMFunction, tinyDOM;
+    var proto,
+        TinyDOMFunction,
+        tinyDOM,
+        td_prop = {
+            isHidden: false
+        };
 
 	/*
 	* Polyfill from https://gist.github.com/elijahmanor/6452535
@@ -27,16 +32,23 @@
 			var elements = document.querySelectorAll(selector), i, e;
 
 			this.length = elements.length;
-			for (i = 0; i < elements.length; i += 1) {
+			for (i = 0; i < elements.length; i++) {
 				e = elements.item(i);
 				if (typeof (e.td_prop) === 'undefined') {
-					e.td_prop = {
-						isHidden: false
-					};
+					e = tinyDOM.merge(e, td_prop);
 				}
-				this[i] = elements.item(i);
+				this[i] = e;
 			}
-		} else {
+		} else if (selector.length) {
+            var i, e;
+            for (i = 0; i < selector.length; i++) {
+                e = selector[i];
+				if (typeof (e.td_prop) === 'undefined') {
+					e = tinyDOM.merge(e, td_prop);
+				}
+				this[i] = e;
+            }
+        } else {
 			this[0] = selector;
 			this.length = 1;
 		}
@@ -114,6 +126,19 @@
 				return null;
 			}
 		},
+        parent: function() {
+            return tinyDOM(this[0].parentNode);
+        },
+        children: function() {
+            var n = this[0].childNodes,
+                a = [], i;
+            for (i = 0; i < n.length; i++) {
+                if (tinyDOM.isElement(n[i])) {
+                   a.push(n[i]);
+                }
+            }
+            return tinyDOM(a);
+        },
 		data: function (key, value) {
 			var e = this[0];
 			if (typeof (value) !== 'undefined') {
@@ -143,6 +168,16 @@
             return this;
         }
 	};
+
+    tinyDOM.isElement = function(node) {
+        var is = false;
+        try {
+            is = node instanceof HTMLElement;
+        } catch(e) {
+            is = node.nodeType && node.nodeType === 1;
+        }
+        return is;
+    }
 
 	tinyDOM.exists = function (obj) {
 		return obj !== null && typeof (obj) !== 'undefined';
