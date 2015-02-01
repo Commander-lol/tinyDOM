@@ -1,6 +1,5 @@
-/*global Element, CustomEvent */
-/*jslint plusplus: true */
-/*jslint nomen: true*/
+/*global Element, CustomEvent, HTMLElement */
+/*jslint plusplus: true, nomen: true*/
 
 (function () {
     'use strict';
@@ -26,10 +25,11 @@
 	*/
 
 	TinyDOMFunction = function (selector) {
+        var elements, i, e;
 		if (selector === null || typeof (selector) === 'undefined') {
 			this.length = 0;
 		} else if (typeof (selector) === 'string') {
-			var elements = document.querySelectorAll(selector), i, e;
+			elements = document.querySelectorAll(selector);
 
 			this.length = elements.length;
 			for (i = 0; i < elements.length; i++) {
@@ -40,7 +40,6 @@
 				this[i] = e;
 			}
 		} else if (selector.length) {
-            var i, e;
             for (i = 0; i < selector.length; i++) {
                 e = selector[i];
 				if (typeof (e.td_prop) === 'undefined') {
@@ -126,10 +125,10 @@
 				return null;
 			}
 		},
-        parent: function(selector) {
+        parent: function (selector) {
             var e = this[0].parentNode, stn = true;
             if (tinyDOM.exists(selector)) {
-                while (e != null && e != document) {
+                while (e !== null && e !== document) {
                     if (e.matches(selector)) {
                         stn = false;
                         break;
@@ -141,12 +140,13 @@
             }
             return tinyDOM(e);
         },
-        children: function() {
+        children: function () {
             var n = this[0].childNodes,
-                a = [], i;
+                a = [],
+                i;
             for (i = 0; i < n.length; i++) {
                 if (tinyDOM.isElement(n[i])) {
-                   a.push(n[i]);
+                    a.push(n[i]);
                 }
             }
             return tinyDOM(a);
@@ -181,15 +181,15 @@
         }
 	};
 
-    tinyDOM.isElement = function(node) {
+    tinyDOM.isElement = function (node) {
         var is = false;
         try {
             is = node instanceof HTMLElement;
-        } catch(e) {
+        } catch (e) {
             is = node.nodeType && node.nodeType === 1;
         }
         return is;
-    }
+    };
 
 	tinyDOM.exists = function (obj) {
 		return obj !== null && typeof (obj) !== 'undefined';
