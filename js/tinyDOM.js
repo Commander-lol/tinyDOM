@@ -1,6 +1,10 @@
 /*global Element, CustomEvent, HTMLElement */
+<<<<<<< HEAD
 /*jslint plusplus: true */
 /*jslint nomen: true*/
+=======
+/*jslint plusplus: true, nomen: true*/
+>>>>>>> origin/master
 
 (function () {
     'use strict';
@@ -126,15 +130,28 @@
 				return null;
 			}
 		},
-        parent: function() {
-            return tinyDOM(this[0].parentNode);
+        parent: function (selector) {
+            var e = this[0].parentNode, stn = true;
+            if (tinyDOM.exists(selector)) {
+                while (e !== null && e !== document) {
+                    if (e.matches(selector)) {
+                        stn = false;
+                        break;
+                    } else {
+                        e = e.parentNode;
+                    }
+                }
+                e = stn ? null : e;
+            }
+            return tinyDOM(e);
         },
-        children: function() {
+        children: function () {
             var n = this[0].childNodes,
-                a = [], i;
+                a = [],
+                i;
             for (i = 0; i < n.length; i++) {
                 if (tinyDOM.isElement(n[i])) {
-                   a.push(n[i]);
+                    a.push(n[i]);
                 }
             }
             return tinyDOM(a);
@@ -169,15 +186,16 @@
         }
 	};
 
-    tinyDOM.isElement = function(node) {
+    tinyDOM.isElement = function (node) {
         var is = false;
         try {
             is = node instanceof HTMLElement;
-        } catch(e) {
+        } catch (e) {
             is = node.nodeType && node.nodeType === 1;
         }
         return is;
     };
+<<<<<<< HEAD
 
     tinyDOM.isJson = function (obj) {
         try {
@@ -187,6 +205,8 @@
             return false;
         }
     };
+=======
+>>>>>>> origin/master
 
 	tinyDOM.exists = function (obj) {
 		return obj !== null && typeof (obj) !== 'undefined';
