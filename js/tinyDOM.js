@@ -1,4 +1,4 @@
-/*global Element, CustomEvent */
+/*global Element, CustomEvent, HTMLElement */
 /*jslint plusplus: true */
 /*jslint nomen: true*/
 
@@ -26,10 +26,11 @@
 	*/
 
 	TinyDOMFunction = function (selector) {
+        var elements, i, e;
 		if (selector === null || typeof (selector) === 'undefined') {
 			this.length = 0;
 		} else if (typeof (selector) === 'string') {
-			var elements = document.querySelectorAll(selector), i, e;
+			elements = document.querySelectorAll(selector);
 
 			this.length = elements.length;
 			for (i = 0; i < elements.length; i++) {
@@ -40,7 +41,6 @@
 				this[i] = e;
 			}
 		} else if (selector.length) {
-            var i, e;
             for (i = 0; i < selector.length; i++) {
                 e = selector[i];
 				if (typeof (e.td_prop) === 'undefined') {
@@ -265,6 +265,7 @@
 		req.send(params.data);
 		return req;
 	};
+
 
 	if (!window.μ) {
 		window.μ = tinyDOM;
