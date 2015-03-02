@@ -121,7 +121,7 @@
 		},
 		first: function () {
 			if (typeof (this[0]) !== 'undefined') {
-				return this[0];
+				return tinyDOM(this[0]);
 			} else {
 				return null;
 			}
@@ -177,7 +177,16 @@
             is = node.nodeType && node.nodeType === 1;
         }
         return is;
-    }
+    };
+
+    tinyDOM.isJson = function (obj) {
+        try {
+            JSON.parse(obj);
+            return obj !== null && typeof obj !== "undefined";
+        } catch (e) {
+            return false;
+        }
+    };
 
 	tinyDOM.exists = function (obj) {
 		return obj !== null && typeof (obj) !== 'undefined';
