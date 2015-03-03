@@ -1,10 +1,5 @@
 /*global Element, CustomEvent, HTMLElement */
-<<<<<<< HEAD
-/*jslint plusplus: true */
-/*jslint nomen: true*/
-=======
 /*jslint plusplus: true, nomen: true*/
->>>>>>> origin/master
 
 (function () {
     'use strict';
@@ -195,7 +190,6 @@
         }
         return is;
     };
-<<<<<<< HEAD
 
     tinyDOM.isJson = function (obj) {
         try {
@@ -205,8 +199,6 @@
             return false;
         }
     };
-=======
->>>>>>> origin/master
 
 	tinyDOM.exists = function (obj) {
 		return obj !== null && typeof (obj) !== 'undefined';
