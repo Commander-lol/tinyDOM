@@ -6,10 +6,7 @@
 
     var proto,
         TinyDOMFunction,
-        tinyDOM,
-        td_prop = {
-            isHidden: false
-        };
+        tinyDOM;
 
 	/*
 	* Polyfill from https://gist.github.com/elijahmanor/6452535
@@ -34,17 +31,11 @@
 			this.length = elements.length;
 			for (i = 0; i < elements.length; i++) {
 				e = elements.item(i);
-				if (typeof (e.td_prop) === 'undefined') {
-					e = tinyDOM.merge(e, td_prop);
-				}
 				this[i] = e;
 			}
 		} else if (selector.length) {
             for (i = 0; i < selector.length; i++) {
                 e = selector[i];
-				if (typeof (e.td_prop) === 'undefined') {
-					e = tinyDOM.merge(e, td_prop);
-				}
 				this[i] = e;
             }
         } else {
@@ -65,29 +56,6 @@
 			while (l--) {
 				fn(l, this[l], this);
 			}
-			return this;
-		},
-		hide: function () {
-			this.each(function (i, e) {
-				if (!e.td_prop.isHidden) {
-					e.style.td_previousDisplay = e.style.display;
-					e.style.display = 'none';
-					e.td_prop.isHidden = true;
-				}
-			});
-			return this;
-		},
-		show: function () {
-			this.each(function (i, e) {
-				if (e.td_prop.isHidden === true) {
-					if (typeof (e.style.td_previousDisplay) !== 'undefined') {
-						e.style.display = e.style.td_previousDisplay;
-					} else {
-						e.style.display = 'block';
-					}
-					e.td_prop.isHidden = false;
-				}
-			});
 			return this;
 		},
 		on: function (ev, del, fn) {
