@@ -120,23 +120,37 @@
             return tinyDOM(a);
         },
 		data: function (key, value) {
-			var e = this[0];
 			if (typeof (value) !== 'undefined') {
-				e.setAttribute('data-' + key, value);
+				this.each(function(i, e){
+                    e.setAttribute('data-' + key, value);
+                });
 				return this;
 			} else {
-				return e.getAttribute('data-' + key);
+				return this[0].getAttribute('data-' + key);
 			}
 		},
         attr: function (key, value) {
-			var e = this[0];
 			if (typeof (value) !== 'undefined') {
-				e.setAttribute(key, value);
+				this.each(function(i, e){
+                    e.setAttribute(key, value);
+                });
 				return this;
 			} else {
-				return e.getAttribute(key);
+				return this[0].getAttribute(key);
 			}
 		},
+        class: function(classname, addremove){
+            if(tinyDOM.exists(addremove)){
+                this.each(function(i, e){
+                    e.classList.toggle(classname, addremove);
+                });
+            } else {
+                this.each(function(i, e){
+                    e.classList.toggle(classname);
+                });
+            }
+            return this;
+        },
         trigger: function (eventName, data, bubbles, cancelable) {
             bubbles = tinyDOM.exists(bubbles) ? bubbles : true;
             cancelable = tinyDOM.exists(cancelable) ? cancelable : true;
