@@ -163,6 +163,10 @@
         }
 	};
 
+    tinyDOM.ready = function(fn) {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
+
     tinyDOM.isElement = function (node) {
         var is = false;
         try {
