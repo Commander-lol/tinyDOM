@@ -210,6 +210,19 @@
         target.dispatchEvent(new CustomEvent(eventName, data, bubbles, cancelable));
     };
 
+    tinyDOM.json = {
+        keys: function(json) {
+            var kys = [],
+                indx;
+            for(indx in json){
+                if(json.hasOwnProperty(indx)){
+                    kys.push(indx);
+                }
+            }
+            return kys;
+        }
+    };
+
 	tinyDOM.ajax = function (options) {
 		var req = new XMLHttpRequest(),
             _this = this,
