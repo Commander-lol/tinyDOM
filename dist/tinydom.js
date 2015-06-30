@@ -1,5 +1,5 @@
 (function () {
-	'use strict';
+'use strict';
 var proto,
     TinyDOMFunction,
     tinyDOM;
@@ -44,6 +44,8 @@ TinyDOMFunction = function (selector) {
         this.length = 1;
     }
 
+    this.apiversion = "1";
+
     return this;
 };
 
@@ -58,6 +60,7 @@ if (!window.μ) {
 if (!window.mu) {
     window.mu = tinyDOM;
 }
+
 tinyDOM.fn = TinyDOMFunction.prototype = {
     each: function (fn) {
         var l = this.length;
@@ -198,6 +201,7 @@ tinyDOM.triggerOn = function (target, eventName, data, bubbles, cancelable) {
     cancelable = tinyDOM.exists(cancelable) ? cancelable : true;
     target.dispatchEvent(new CustomEvent(eventName, data, bubbles, cancelable));
 };
+
 tinyDOM.json = {
     keys: function(json) {
         var kys = [],
@@ -231,6 +235,7 @@ tinyDOM.json = {
 		}
 	}
 };
+
 tinyDOM.ajax = function (options) {
     var req = new XMLHttpRequest(),
         _this = this,
@@ -280,4 +285,5 @@ tinyDOM.ajax = function (options) {
     req.send(params.data);
     return req;
 };
+
 }());
