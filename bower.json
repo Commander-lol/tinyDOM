@@ -1,0 +1,30 @@
+{
+  "name": "tinyDOM",
+  "version": "1.0.0",
+  "homepage": "https://github.com/Commander-lol/tinyDOM",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "Louis Capitanchik <contact@louiscap.co>"
+  ],
+  "description": "A simple DOM batch manipulation library",
+  "main": "js/tinyDOM.min.js",
+  "keywords": [
+    "DOM",
+    "Batch",
+    "Manipulation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Commander-lol/tinyDOM.git"
+  },
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
