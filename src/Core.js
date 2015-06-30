@@ -42,6 +42,8 @@ TinyDOMFunction = function (selector) {
         this.length = 1;
     }
 
+    this.apiversion = "1";
+    
     return this;
 };
 
