@@ -1,6 +1,6 @@
 {
   "name": "tinyDOM",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "homepage": "https://github.com/Commander-lol/tinyDOM",
   "moduleType": [
     "globals"
@@ -9,7 +9,7 @@
     "Louis Capitanchik <contact@louiscap.co>"
   ],
   "description": "A simple DOM batch manipulation library",
-  "main": "js/tinyDOM.min.js",
+  "main": "dist/tinyDOM.min.js",
   "keywords": [
     "DOM",
     "Batch",
