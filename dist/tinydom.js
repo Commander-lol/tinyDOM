@@ -26,7 +26,7 @@ TinyDOMFunction = function (selector) {
 
     if (selector === null || typeof (selector) === 'undefined') {
         this.length = 0;
-    } else if (typeof (selector) === 'string') {
+    } else if (selector.substring) {
         elements = document.querySelectorAll(selector);
 
         this.length = elements.length;
@@ -34,11 +34,12 @@ TinyDOMFunction = function (selector) {
             e = elements.item(i);
             this[i] = e;
         }
-    } else if (selector.length) {
+    } else if (selector.push) {
         for (i = 0; i < selector.length; i++) {
             e = selector[i];
             this[i] = e;
         }
+        this.length = selector.length;
     } else {
         this[0] = selector;
         this.length = 1;
@@ -119,13 +120,19 @@ tinyDOM.fn = TinyDOMFunction.prototype = {
         }
         return tinyDOM(e);
     },
-    children: function () {
+    children: function (selector) {
         var n = this[0].childNodes,
             a = [],
             i;
         for (i = 0; i < n.length; i++) {
             if (tinyDOM.isElement(n[i])) {
-                a.push(n[i]);
+                if (mu.exists(selector)) {
+                    if(n[i].matches(selector)) {
+                        a.push(n[i]);
+                    }
+                } else {
+                    a.push(n[i]);
+                }
             }
         }
         return tinyDOM(a);
@@ -161,6 +168,13 @@ tinyDOM.fn = TinyDOMFunction.prototype = {
             });
         }
         return this;
+    },
+    clear: function() {
+        this.each(function(i, e) {
+            while(e.firstChild) {
+                e.removeChild(e.firstChild);
+            }
+        });
     },
     trigger: function (eventName, data, bubbles, cancelable) {
         bubbles = tinyDOM.exists(bubbles) ? bubbles : true;
