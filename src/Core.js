@@ -1,19 +1,5 @@
-var proto,
-    TinyDOMFunction,
+var TinyDOMFunction,
     tinyDOM;
-
-/*
-* Polyfill from https://gist.github.com/elijahmanor/6452535
-*/
-if (Element && !Element.prototype.matches) {
-    proto = Element.prototype;
-    proto.matches = proto.matchesSelector ||
-                    proto.mozMatchesSelector || proto.msMatchesSelector ||
-                    proto.oMatchesSelector || proto.webkitMatchesSelector;
-}
-/*
-* End Polyfill
-*/
 
 TinyDOMFunction = function (selector) {
     var elements, i, e;

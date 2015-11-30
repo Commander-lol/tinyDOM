@@ -17,7 +17,7 @@ module.exports = function(grunt) {
                 footer: "\n}());"
             },
             dist: {
-                src: ["src/Core.js", "src/Batch.js", "src/Util.js", "src/Json.js", "src/Ajax.js"],
+                src: ["src/Poly.js", "src/Core.js", "src/Batch.js", "src/Util.js", "src/Json.js", "src/Ajax.js"],
                 dest: "dist/tinydom.js"
             }
         }
