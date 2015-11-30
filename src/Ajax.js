@@ -20,7 +20,7 @@ tinyDOM.ajax = function (options) {
             };
         };
 
-    this.merge(params, options);
+    tinyDOM.json.merge(params, options);
 
     req.responseType = params.responseType;
 

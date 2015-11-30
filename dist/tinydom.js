@@ -261,9 +261,9 @@ tinyDOM.json = {
      *                   of json2.
      */
     merge: function (json1, json2) {
-		if (!this.exists(json1)) {
+		if (!tinyDOM.exists(json1)) {
             return json2;
-        } else if (!this.exists(json2)) {
+        } else if (!tinyDOM.exists(json2)) {
 			return json1;
 		} else {
             var prop;
@@ -299,7 +299,7 @@ tinyDOM.ajax = function (options) {
             };
         };
 
-    this.merge(params, options);
+    tinyDOM.json.merge(params, options);
 
     req.responseType = params.responseType;
 
