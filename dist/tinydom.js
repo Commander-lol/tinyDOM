@@ -9,6 +9,7 @@ if (Element && !Element.prototype.matches) {
                     proto.mozMatchesSelector || proto.msMatchesSelector ||
                     proto.oMatchesSelector || proto.webkitMatchesSelector;
 }
+
 var TinyDOMFunction,
     tinyDOM;
 
@@ -41,7 +42,7 @@ TinyDOMFunction = function (selector) {
     }
 
     this.apiversion = "1";
-
+    
     return this;
 };
 
