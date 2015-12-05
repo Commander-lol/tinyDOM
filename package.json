@@ -1,8 +1,8 @@
 {
   "name": "tinydom",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A simple DOM batch manipulation library",
-  "main": "dist/tinydom.js",
+  "main": "dist/tinydom.min.js",
   "directories": {
     "test": "test"
   },
@@ -13,7 +13,12 @@
   "keywords": [
     "DOM",
     "Batch",
-    "Manipulation"
+    "Manipulation",
+    "tinyDOM",
+    "ajax",
+    "json",
+    "utilities",
+    "utility"
   ],
   "author": "Louis Capitanchik",
   "license": "ISC",
