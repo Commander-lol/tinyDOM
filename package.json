@@ -1,6 +1,6 @@
 {
   "name": "tinydom",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "A simple DOM batch manipulation library",
   "main": "dist/tinydom.js",
   "directories": {
