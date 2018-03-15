@@ -89,7 +89,11 @@ tinyDOM.fn = TinyDOMFunction.prototype = {
                 e.setAttribute(key, value);
             });
             return this;
-        } else {
+        } else if (value === null) {
+            this.each(function(i, e){
+                e.removeAttribute(key);
+			});
+		} else {
             return this[0].getAttribute(key);
         }
     },
