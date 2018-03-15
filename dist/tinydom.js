@@ -144,15 +144,16 @@ tinyDOM.fn = TinyDOMFunction.prototype = {
         }
     },
     attr: function (key, value) {
-        if (typeof (value) !== 'undefined') {
-            this.each(function(i, e){
-                e.setAttribute(key, value);
-            });
-            return this;
-        } else if (value === null) {
-            this.each(function(i, e){
-                e.removeAttribute(key);
+        if (value === null) {
+			this.each(function(i, e){
+				e.removeAttribute(key);
 			});
+            return this;
+        } else if (typeof (value) !== 'undefined') {
+			this.each(function(i, e){
+				e.setAttribute(key, value);
+			});
+			return this;
 		} else {
             return this[0].getAttribute(key);
         }
